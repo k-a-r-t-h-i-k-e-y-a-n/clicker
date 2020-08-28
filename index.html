@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+
+
+  <head>
+    <title> CLICKER </title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/numberclickcss.css" />
+
+    <style>
+          #timer{
+            width: 494px;
+            height: 35px;
+            margin: auto;
+            border: 2px solid black;
+            border-radius: 19.2px;
+            background-color: lightyellow;
+            text-align: center;
+          }
+
+          .wrap{
+            height: 494px;
+            width: 494px;
+            margin: auto;
+            border: 2px solid black;
+            border-radius: 19.2px;
+            margin-top: 10px;
+            background-color: yellow;
+          }
+
+          .boxes{
+            height: 87px;
+            width: 87px;
+            border: 2px solid black;
+            border-radius: 9px;
+            float: left;  
+            margin-top: 10px;
+            margin-left: 10px;
+            background-color: black;
+            cursor: pointer;
+            font-size: 60px;
+            color: yellow;
+          }
+
+          .boxes:hover{
+            background-color: red;
+          }
+
+          #startbutton{
+            float: left;  
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 33px;
+            width: 494px;
+            height: 40px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: lightyellow;
+          }
+    </style>
+
+  </head>
+
+ 
+  <body> 
+
+    <div><h1 id="timer">0 s</h1></div>
+    <div class="wrap">
+       <div><button class="boxes" id="box1" onclick="boxclick(1)">Q</button></div>
+       <div><button class="boxes" id="box2" onclick="boxclick(2)">U</button></div>
+       <div><button class="boxes" id="box3" onclick="boxclick(3)">I</button></div>
+       <div><button class="boxes" id="box4" onclick="boxclick(4)">C</button></div>
+       <div><button class="boxes" id="box5" onclick="boxclick(5)">K!</button></div>
+       <div><button class="boxes" id="box6" onclick="boxclick(6)">Q</button></div>
+       <div><button class="boxes" id="box7" onclick="boxclick(7)">U</button></div>
+       <div><button class="boxes" id="box8" onclick="boxclick(8)">I</button></div>
+       <div><button class="boxes" id="box9" onclick="boxclick(9)">C</button></div>
+       <div><button class="boxes" id="box10" onclick="boxclick(10)">K!</button></div>
+       <div><button class="boxes" id="box11" onclick="boxclick(11)">C</button></div>
+       <div><button class="boxes" id="box12" onclick="boxclick(12)">L</button></div>
+       <div><button class="boxes" id="box13" onclick="boxclick(13)">I</button></div>
+       <div><button class="boxes" id="box14" onclick="boxclick(14)">C</button></div>
+       <div><button class="boxes" id="box15" onclick="boxclick(15)">K</button></div>
+       <div><button class="boxes" id="box16" onclick="boxclick(16)">S</button></div>
+       <div><button class="boxes" id="box17" onclick="boxclick(17)">T</button></div>
+       <div><button class="boxes" id="box18" onclick="boxclick(18)">A</button></div>
+       <div><button class="boxes" id="box19" onclick="boxclick(19)">R</button></div>
+       <div><button class="boxes" id="box20" onclick="boxclick(20)">T</button></div>
+       <div><button class="boxes" id="box21" onclick="boxclick(21)">B</button></div>
+       <div><button class="boxes" id="box22" onclick="boxclick(22)">E</button></div>
+       <div><button class="boxes" id="box23" onclick="boxclick(23)">L</button></div>
+       <div><button class="boxes" id="box24" onclick="boxclick(24)">O</button></div>
+       <div><button class="boxes" id="box25" onclick="boxclick(25)">W</button></div>
+       <button id="startbutton" onclick="startbutton()">START</button>     
+    </div>
+    
+  </body>
+
+
+</html>
+
+
+
+<script type="text/javascript">
+
+        /****************************************************************************************************/
+        /*************FUNCTION TO CREATE AN ARRAY OF FIRST N RANDOM NUMBERS WITHOUT REPEATING****************/
+        /****************************************************************************************************/
+
+        function uniqueRandomArray(num){
+            
+          var uptonum = [];
+
+            for (var i=1 ; i<=num ; i++)
+              { uptonum.push(i); }
+
+            var numbers = [];
+
+            for ( j=num ; j>0 ; j-- ){
+            var random = Math.floor(Math.random()*j);
+                numbers.push(uptonum[random]);
+                uptonum.splice(random,1);
+          }
+
+          return numbers;
+
+        }
+
+        /****************************************************************************************************/
+        /*************CODE TO CREATE AN ARRAY OF FIRST N RANDOM NUMBERS WITHOUT REPEATING********************/
+        /****************************************************************************************************/
+
+
+        var seconds = 1;
+        var x = 1;
+        function timer(){ // FUNCTION TO DISPLAY TIME IN SECONDS
+
+              document.getElementById("timer").innerHTML = seconds+" s";
+              window.seconds++;
+
+        }
+
+
+        var ID = null; // BROWSER ID FOR TIME - USED FOR STARTING AND STOPING TIMER
+        function startbutton(){ // ARRANGING FIRST 25 NUMBERS IN RANDOM, RESTART OPTION -- RESTART RUNNING TIME AND ARRANGES NUMBERS IN ANOTHER RANDOM 
+
+          document.getElementById("timer").innerHTML = "0 s";
+          document.getElementById("startbutton").innerHTML = "RESTART";
+          window.x = 1
+          seconds = 1;
+          window.clearInterval(ID);
+          window.ID=window.setInterval(timer,1000);
+
+          var arr1 = uniqueRandomArray(25);
+          for (var k=1 ; k<=25 ; k++){
+              document.getElementById("box"+k).innerHTML = arr1[k-1];
+            }
+
+          var arr2;
+          window.arr2 = uniqueRandomArray(25);
+        }
+
+
+        function boxclick(num){ // IDENTIFIES WHICH BOX GET CLICKED AND REPLACE WITH ANOTHER RANDOM NUMBER FROM 26 TO 50
+
+          if (document.getElementById("box"+num).innerHTML == x){
+            if (x<=25)
+              {document.getElementById("box"+num).innerHTML = arr2[num-1]+25;} 
+            else
+              {document.getElementById("box"+num).innerHTML = null;}
+            x++;
+          }
+          
+          if (x == 51){
+            alert("CONGRATS ! YOU TOOK "+seconds+" SECONDS TO COMPLETE");
+            window.clearInterval(ID);
+            }
+          
+        }
+    
+</script>
